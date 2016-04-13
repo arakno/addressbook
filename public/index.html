@@ -1,0 +1,71 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Address Book</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="scripts/bower_components/modernizr/modernizr.js"></script>
+
+        <script src="scripts/bower_components/zepto/zepto.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/mixins.css">
+    <link rel="stylesheet" type="text/css" href="styles/base/normalize.css">
+    <link rel="stylesheet" type="text/css" href="styles/base/global.css">
+    <link rel="stylesheet" type="text/css" href="styles/base/fonts.css">
+    <link rel="stylesheet" type="text/css" href="styles/components/column.css">
+    <link rel="stylesheet" type="text/css" href="styles/modules/module.css">
+
+    
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+<main id="l-content">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+    
+
+    <section id="listView">
+
+       <h3 id="title">Address List</h3>
+
+       
+       <table id="addressList" width="100%" height="100%">
+
+                    
+       </table>
+    
+        <br>
+        <button id="addContact">Add contact</button>
+
+   </section>
+
+
+   <section id="contactView">
+       
+   </section>
+</main>
+
+    <script src="scripts/bower_components/mustache.js/mustache.js"></script>
+    <script src="scripts/main.js"></script>
+
+<script>
+  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+  ':35729/livereload.js?snipver=1"></' + 'script>')
+</script>
+  
+    </body>
+</html>

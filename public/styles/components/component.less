@@ -1,0 +1,233 @@
+/*
+ * Description
+ *
+ * - Usage:
+ *   - .component
+ *     + span {name}
+ *     + p {description}
+ */
+
+
+/* CONTACT FORM */
+
+
+
+        form {
+            padding:20px 10px;
+            border-top:1px solid #ccc;
+        }
+
+        label, textarea {
+            float: left;
+            margin:0;
+            padding:0;
+            width: 100%;
+            display: block;
+            text-align:left;
+            color:#666;
+
+        }
+
+        fieldset {
+            border-bottom: 1px dotted #ccc;
+            padding: 10px 0;
+        }
+
+input[type="email"], input[type="password"], input[type="text"], input[type="tel"] {
+    display: inline-block;
+    background: #fff;
+    border: 3px solid #ccc;
+    margin: 10px auto;
+    padding: 6px;
+    width:80%;
+}
+
+
+input:focus::-webkit-input-placeholder, input:focus:-ms-input-placeholder, input:focus::-moz-placeholder {
+outline:none;
+border: none;
+color: transparent;
+}
+
+
+
+a.submit, input[type="submit"], input[type="reset"], input[type="button"], #submit {
+background: orange;
+    border: 1px solid rgb(0, 109, 146);
+    padding: 6px 15px;
+    margin-top: 30px;
+    border-radius: 8px;
+    color:#fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 4px #4cd;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 21px;
+    width:99.9%;
+    height: 60px;
+}
+
+    a.submit:hover, input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, #submit:hover {
+        text-shadow: 1px -1px -4px #ccc;
+        color: rgb(255, 255, 255);
+        border: 1px solid rgb(0, 107, 143);
+    }
+
+
+//////////////
+/* POPUP */
+/////////////
+
+    #litebox {
+        position: fixed;
+        top: 25%;
+        left: 25%;
+        background: #fafafa;
+        border-radius: 6px;
+        box-shadow: 3px 3px 5px 6px #333;
+        border: 1px solid:#ccc;
+        z-index: 999;
+        width: 500px;
+        height: 100%;
+        display: none;
+    }
+    #litebox_shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000;
+    width: 100%;
+    height: 100%;
+    }
+
+.on {
+    transition: all 1s ease-in-out;
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.60;
+    opacity: 0.60;
+    display: block;
+}
+.off {
+    display: none;
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    opacity: 0;
+    z-index: 900;
+    transition: all 2s ease-in-out;
+
+}
+
+    #litebox header {background:#ddd; cursor: move; padding: 20px;}
+    #litebox footer, #litebox div {padding: 20px;}
+
+    #close {color: red; float: right;font-weight: bold;}
+
+
+
+#content
+{
+    background: #fafafa;
+    text-align: center;
+    margin:0 auto;
+    height: 100%;
+    width:100%;
+    max-width: 1140px;
+
+}
+#content > header {background: #333; color:#fff;padding: 20px;margin-bottom: 10px;}
+
+#products {
+
+    margin: 0 auto;
+    .column(12);
+
+
+    li {
+        margin:5px;
+        width: auto;
+        display: inline-block;
+        overflow:hidden;
+
+        article{
+            display:list-item;
+
+            a {
+                padding:6px;
+                display: block;
+                border: 1px solid #ddd;
+                background: #fff;
+
+
+                &:hover {
+                    //.animated;
+                    //.bounce;
+                }
+            }
+        }
+
+        img {
+            max-width: 100%;
+            max-height:100%;
+        }
+    }
+}
+
+
+
+nav {
+    background:#fafafa;
+    padding:10px;
+    .clearfix();
+
+    ul {
+        display: block;
+
+        li{
+            display: inline;
+        }
+    }
+}
+
+
+
+
+/* MEDIA QUERIES
+========================== */
+
+@media only screen and (min-width: 480px) {
+
+    body {
+       .font-size(14);
+   }
+
+#content {
+    max-width: 800px;
+}
+   #products {
+
+    .column(12);
+
+}
+
+}
+
+
+//Desktop
+@media only screen and (min-width: 992px) {
+
+    body {
+        .font-size(18);
+    }
+
+#content {
+    max-width: 1140px;
+}
+    #products {
+
+        .column(9);
+    }
+
+
+}

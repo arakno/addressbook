@@ -1,0 +1,133 @@
+/*
+ * Rules applied to whole project (selection color, container sizes,…)
+ */
+@import "mixins.less";
+
+
+// VARIABLES
+// COLORS#
+
+@purple : #827096;
+@selection_color: #19bb9b;
+@selection_color_font: #fff;
+
+::-moz-selection {
+  background: @selection_color;
+  color: @selection_color_font;
+  text-shadow: none;
+}
+
+::selection {
+  background: @selection_color;
+  color: @selection_color_font;
+  text-shadow: none;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+.box-sizing(border-box);
+
+}
+
+
+html {
+  text-align:center;
+  overflow-y:scroll;
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:none;
+  -moz-text-size-adjust:none;
+  -ms-text-size-adjust:none;
+  text-size-adjust:none;
+  height: 100%;
+  font-size: 62.5%;
+  margin: 0;
+  padding: 0;
+}
+
+body
+{
+  .font-size(12);
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+
+
+/* ==========================================================================
+  LINKS
+   ========================================================================== */
+
+a[href] {
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid;
+  //.transition(color 200ms, border-color 200ms);
+  
+  &:hover {
+    border-color: transparent;
+  }
+
+  &:active {
+    //.translateY(1px);
+    
+  }
+}
+
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+
+
+
+
+/* ==========================================================================
+  LAYOUT
+   ========================================================================== */
+
+nav {
+    background: @purple; 
+    padding:10px;
+    
+    .clearfix();
+
+    ul {
+        display: block;
+        
+        li{
+            display: inline;
+            
+            a { color: #fff; text-decoration: none; }
+        }
+    }
+}
+
+
+#l-content {margin: 0 auto;float: left;padding:20px 60px;}
+#l-content + footer {background: #fcfcfc; text-align: right; width: 100%; margin: 0 auto;float: right;margin:20px 0 0 0px; position: absolute; bottom: 0px;}
+#l-content + footer a { font-weight: bold; }
+#home, #pag1, #pag2 {float:left;}
+
+
+#l-content
+{
+    background: #fafafa;
+    text-align: center;
+    margin:0 auto;
+    height: 100%;
+    width:100%;
+    max-width: 1140px;
+
+}
+#l-content > header {color:#fff;padding: 20px;margin-bottom: 10px;}
+
+

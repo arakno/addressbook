@@ -1,0 +1,42 @@
+/*
+ * This file includes all your components and modules. It shouldn’t contain any
+ * CSS rules.
+ * Based on ’SMACSS’ (Scalable and Modular Architecture for CSS). Read more at
+ * [http://smacss.com/]
+ *
+ * - Base:
+ *   - reset
+ *
+ * - Component:
+ *   - main idea: component is a reusable page element
+ *   - all your buttons, form inputs,…
+ *
+ * - Module:
+ *   - bigger page block, *uses components*, *defines the final component layout*,
+ *     *not always* reusable
+ *   - footer, header, user profile,…
+ */
+
+@import "mixins.less";
+
+/*
+* Base
+*/
+@import "base/normalize.less";
+@import "base/global.less";
+@import "base/fonts.less";
+
+
+/*
+* Components
+*/
+@import "components/column.less";
+@import "components/component.less";
+
+
+/*
+* Modules
+*/
+@import "modules/module.less";
+
+

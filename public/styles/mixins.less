@@ -1,0 +1,503 @@
+// ==========================================================
+
+// 320 and Up by Andy Clarke
+// Version: 3.0
+// URL: http://stuffandnonsense.co.uk/projects/320andup/
+// Apache License: v2.0. http://www.apache.org/licenses/LICENSE-2.0
+
+// ==========================================================
+
+/* Mixins =================================================== */
+
+// 1. ROOT 					==============================
+/*
+ * A collection of useful helper mixins
+ *
+ * - .group - clears floats, used as a wrap for column layout
+ * - .pseudo([@display:block, @content:'']) - sets display and content of an
+ *   element
+ * - .absolute([@left:0, @top:0 | @square:0]) - positions an element absolutely
+ * - .min-size([@width:0, @height:0 | @square:0])
+ * - .max-size([@width:100%, @height:100% | @square:100%])
+ * - .pointer-events([@value:all])
+ */
+
+.group {
+  *zoom: 1;
+
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+.pseudo (@display: block, @content: '') {
+  content: @content;
+  display: @display;
+}
+
+.absolute (@x: 0, @y: 0) {
+  position: absolute;
+  left: @x;
+  top: @y;
+}
+
+.absolute (@xy: 0) {
+  position: absolute;
+  left: @xy;
+  top: @xy;
+}
+
+.min-size(@w: 0, @h: 0) {
+  min-width: @w;
+  min-height: @h;
+}
+
+.min-size(@square: 0) {
+  min-width: @square;
+  min-height: @square;
+}
+
+.max-size(@w: 100%, @h: 100%) {
+  max-width: @w;
+  max-height: @h;
+}
+
+.max-size(@square: 100%) {
+  max-width: @square;
+  max-height: @square;
+}
+
+.pointer-events(@value:all) {
+  pointer-events: @value;
+  -ms-pointer-events: @value;
+}
+
+// 2. TYPOGRAPHY 			==============================
+
+.font-face (@name: Helvetca Neue, @url: "../font/websymbols-regular-webfont") {
+  @font-face {
+    font-family: e(%('%d', @name));
+    src: e(%("url('%d.eot')", ~"@{url}"));
+    src: e(%("url('%d.eot?#') format('embedded-opentype')", ~"@{url}")),
+         e(%("url('%d.woff') format('woff')", ~"@{url}")),
+         e(%("url('%d.ttf') format('truetype')", ~"@{url}")),
+         e(%("url('%d.svg#@{name}') format('svg')", ~"@{url}"));
+  }
+}
+/*
+@font-face {
+    font-family: 'MyWebFont';
+    src: url('webfont.eot'); IE9 Compat Modes
+    src: url('webfont.eot?#iefix') format('embedded-opentype'), IE6-IE8
+         url('webfont.woff') format('woff'), Modern Browsers
+         url('webfont.ttf')  format('truetype'), Safari, Android, iOS
+         url('webfont.svg#svgFontName') format('svg'); Legacy iOS
+    }
+ */
+.font-size (@font-size: 16){
+@rem: (@font-size / 10);
+font-size : @font-size * 1px;
+font-size : ~"@{rem}rem"; }
+
+.text-overflow {
+overflow : hidden;
+text-overflow : ellipsis;
+white-space : nowrap; }
+
+.text-wrap {
+    white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+
+  word-wrap: break-word;
+  text-overflow : ellipsis;
+
+  -ms-word-break: break-all;
+      word-break: break-all;
+      word-break: break-word;
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+          hyphens: auto;
+}
+
+
+// 3. COLOUR 				==============================
+
+
+// Placeholder text
+// -------------------------
+.placeholder (@color: @placeholderText) {
+  :-moz-placeholder {
+    color: @color;
+}
+::-webkit-input-placeholder {
+    color: @color;
+}
+:-ms-input-placeholder{
+        color: @color;
+}
+
+}
+
+
+// 4. GRADIENTS 				==============================
+
+
+// gradients from dss
+
+.gradient-h (@startColor: #EEE, @endColor: #FFF) {
+  background-color: @endColor;
+  background-image: -webkit-gradient(linear, left center, right center, from(@startColor),to(@endColor));
+  background-image: -webkit-linear-gradient(left, @startColor, @endColor);
+  background-image:    -moz-linear-gradient(left, @startColor, @endColor);
+  background-image:      -o-linear-gradient(left, @startColor, @endColor);
+  background-image:         linear-gradient(left, @startColor, @endColor);
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(GradientType=1, StartColorStr='%d', EndColorStr='%d')", @startColor, @endColor));
+}
+
+/* @group gradient-veritical() */
+
+  .gradient-v (@startColor: #EEE, @endColor: #FFF) {
+    background-color: mix(@startColor, @endColor, 60%);
+
+     @svg: ~'<?xml version="1.0" ?><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1 1" preserveAspectRatio="none"><linearGradient id="grad-ucgg-generated" gradientUnits="userSpaceOnUse" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="@{gradient-top}" stop-opacity="1"/><stop offset="100%" stop-color="@{gradient-bottom}" stop-opacity="1"/></linearGradient><rect x="0" y="0" width="1" height="1" fill="url(#grad-ucgg-generated)" /></svg>';
+
+    .base64DataUriBackground(@svg);
+
+    background-image: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    background-image: -webkit-linear-gradient(top, @startColor, @endColor);
+    background-image:    -moz-linear-gradient(top, @startColor, @endColor);
+    background-image:      -o-linear-gradient(top, @startColor, @endColor);
+    background-image:         linear-gradient(top, @startColor, @endColor);
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='%d', EndColorStr='%d')", @startColor, @endColor));
+  }
+
+  .gradient-vline (@startColor: #B0BAC5, @middleColor1: #9DA7B2, @middleColor2: #919CA8, @endColor: #7E8A98) {
+    background: mix(@middleColor1, @middleColor2, 50%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @startColor), color-stop(50%, @middleColor1), color-stop(51%, @middleColor2), color-stop(100%, @endColor));
+    background-image: -webkit-linear-gradient(top, @startColor 0%, @middleColor1 50%, @middleColor2 51%, @endColor 100%);
+    background-image:    -moz-linear-gradient(top, @startColor 0%, @middleColor1 50%, @middleColor2 51%, @endColor 100%);
+    background-image:      -o-linear-gradient(top, @startColor 0%, @middleColor1 50%, @middleColor2 51%, @endColor 100%);
+    background-image:         linear-gradient(top, @startColor 0%, @middleColor1 50%, @middleColor2 51%, @endColor 100%);
+  }
+
+  .gradient-v3colors (@startColor: #00b3ee, @middleColor: #7a43b6, @colorStop: 50%, @endColor: #c3325f) {
+    background-color: mix(@middleColor, @endColor, 80%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(@startColor), color-stop(@colorStop, @middleColor), to(@endColor));
+    background-image: -webkit-linear-gradient(@startColor, @middleColor @colorStop, @endColor);
+    background-image:    -moz-linear-gradient(top, @startColor, @middleColor @colorStop, @endColor);
+    background-image:      -o-linear-gradient(@startColor, @middleColor @colorStop, @endColor);
+    background-image:         linear-gradient(@startColor, @middleColor @colorStop, @endColor);
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='%d', endColorstr='%d')", @startColor, @endColor));
+  }
+
+/* @end */
+
+.gradient-radial (@innerColor: #EEE, @outerColor: #FFF) {
+  background-color: @outerColor;
+  background-image: -webkit-gradient(radial, 50% 50%, 200, 50% 50%, 20, from(@outerColor), to(@innerColor));
+  background-image: -webkit-radial-gradient(50% 50%, @innerColor, @outerColor);
+  background-image:    -moz-radial-gradient(50% 50%, @innerColor, @outerColor);
+  background-image:      -o-radial-gradient(50% 50%, @innerColor, @outerColor);
+  background-image:         radial-gradient(50% 50%, @innerColor, @outerColor);
+}
+
+.gradient-direction (@startColor: #555, @endColor: #333, @degrees: 45) {
+  background: @endColor;
+  background-image: -webkit-gradient(linear, ~"@{degrees}deg", from(@startColor), to(@endColor));
+  background-image: -webkit-linear-gradient(~"@{degrees}deg", @startColor, @endColor);
+  background-image:    -moz-linear-gradient(~"@{degrees}deg", @startColor, @endColor);
+  background-image:      -o-linear-gradient(~"@{degrees}deg", @startColor, @endColor);
+  background-image:         linear-gradient(~"@{degrees}deg", @startColor, @endColor);
+}
+
+.horizontal(@startColor : @white, @endColor : @lightergrey) {
+background-color: @endColor;
+background-image  : -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
+background-image  : -webkit-linear-gradient(left, @startColor, @endColor); 					 // Safari 5.1+, Chrome 10+
+background-image  : -moz-linear-gradient(left, @startColor, @endColor); 					 // FF 3.6+
+background-image  : -ms-linear-gradient(left, @startColor, @endColor); 						 // IE10
+background-image  : -o-linear-gradient(left, @startColor, @endColor); 						 // Opera 11.10
+background-image  : linear-gradient(left, @startColor, @endColor); 							 // W3C
+background-repeat : repeat-x; }
+
+.vertical(@startColor : @white, @endColor:  @lightergrey) {
+background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
+background-image  : -webkit-linear-gradient(top, @startColor, @endColor); 					 // Safari 5.1+, Chrome 10+
+background-color  : @endColor;
+background-image  : -moz-linear-gradient(top, @startColor, @endColor);   					 // FF 3.6+
+background-image  : -ms-linear-gradient(top, @startColor, @endColor); 						 // IE10
+background-image  : -o-linear-gradient(top, @startColor, @endColor); 						 // Opera 11.10
+background-image  : linear-gradient(top, @startColor, @endColor); 							 // W3C
+background-repeat : repeat-x; }
+
+.directional(@startColor : @white, @endColor : @lightergrey, @deg : 45deg) {
+background-color  : @endColor;
+background-image  : -moz-linear-gradient(@deg, @startColor, @endColor); 					// FF 3.6+
+background-image  : -ms-linear-gradient(@deg, @startColor, @endColor); 						// IE10
+background-image  : -webkit-linear-gradient(@deg, @startColor, @endColor); 					// Safari 5.1+, Chrome 10+
+background-image  : -o-linear-gradient(@deg, @startColor, @endColor); 						// Opera 11.10
+background-image  : linear-gradient(@deg, @startColor, @endColor); 							// W3C
+background-repeat : repeat-x; }
+
+// .bordered(COLOR, COLOR, COLOR, COLOR);
+
+.bordered(@top-color: #eee, @right-color: #eee, @bottom-color: #eee, @left-color: #eee) {
+border-top : solid 1px @top-color;
+border-left : solid 1px @left-color;
+border-right : solid 1px @right-color;
+border-bottom : solid 1px @bottom-color; }
+
+// .rounded(VALUE);
+
+.rounded(@radius:4px) {
+-webkit-border-radius : @radius;
+-moz-border-radius : @radius;
+border-radius : @radius; }
+
+// .border-radius(VALUE,VALUE,VALUE,VALUE);
+
+.border-radius(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+-webkit-border-top-right-radius : @topright;
+-webkit-border-bottom-right-radius : @bottomright;
+-webkit-border-bottom-left-radius : @bottomleft;
+-webkit-border-top-left-radius : @topleft;
+-moz-border-radius-topright : @topright;
+-moz-border-radius-bottomright : @bottomright;
+-moz-border-radius-bottomleft : @bottomleft;
+-moz-border-radius-topleft : @topleft;
+border-top-right-radius : @topright;
+border-bottom-right-radius : @bottomright;
+border-bottom-left-radius : @bottomleft;
+border-top-left-radius : @topleft;
+-webkit-background-clip : padding-box;
+-moz-background-clip : padding;
+background-clip : padding-box; }
+
+// .box-shadow(HORIZONTAL VERTICAL BLUR COLOR))
+
+.box-shadow(@shadow) {
+-webkit-box-shadow : @shadow;
+-moz-box-shadow : @shadow;
+box-shadow : @shadow; }
+
+// .drop-shadow(HORIZONTAL, VERTICAL, BLUR, ALPHA);
+
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+-webkit-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+-moz-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha); }
+
+// .opacity(VALUE);
+
+.opacity(@opacity : .5) {
+-webkit-opacity : @opacity;
+-moz-opacity : @opacity;
+opacity : @opacity; }
+
+// .rotate(VALUEdeg);
+
+.rotate(@deg) {
+-webkit-transform : rotate(@deg);
+-moz-transform : rotate(@deg);
+-ms-transform : rotate(@deg);
+-o-transform : rotate(@deg);
+transform : rotate(@deg); }
+
+// .scale(VALUE);
+
+.scale(@ratio) {
+-webkit-transform : scale(@ratio);
+-moz-transform : scale(@ratio);
+-ms-transform : scale(@ratio);
+-o-transform : scale(@ratio);
+transform : scale(@ratio); }
+
+// .skew(VALUE, VALUE);
+
+.skew(@x: 0, @y: 0) {
+-webkit-transform : skew(@x, @y);
+-moz-transform : skew(@x, @y);
+-ms-transform : skew(@x, @y);
+-o-transform : skew(@x, @y);
+transform : skew(@x, @y); }
+
+// .transition(PROPERTY DURATION DELAY(OPTIONAL) TIMING-FINCTION);
+
+.transition(@transition) {
+-webkit-transition : @transition;
+-moz-transition : @transition;
+-ms-transition : @transition;
+-o-transition : @transition;
+transition : @transition; }
+
+// .translate(VALUE, VALUE)
+
+.translate(@x: 0, @y: 0) {
+-webkit-transform : translate(@x, @y);
+-moz-transform : translate(@x, @y);
+-ms-transform : translate(@x, @y);
+-o-transform : translate(@x, @y);
+transform : translate(@x, @y); }
+
+.translate3d(@x: 0, @y: 0, @z: 0) {
+-webkit-transform : translate(@x, @y, @z);
+-moz-transform : translate(@x, @y, @z);
+-ms-transform : translate(@x, @y, @z);
+-o-transform : translate(@x, @y, @z);
+transform : translate(@x, @y, @z); }
+
+// 5. ELEMENTS 				==============================
+
+// .background-alpha(VALUE VALUE);
+
+.background-alpha(@color: @white, @alpha: 1) {
+background-color : hsla(hue(@color), saturation(@color), lightness(@color), @alpha); }
+
+// .background-size(VALUE VALUE);
+
+.background-size(@size){
+-webkit-background-size : @size;
+-moz-background-size : @size;
+-o-background-size : @size;
+background-size : @size; }
+
+// .background-clip(VALUE); (border-box, padding-box, content-box)
+
+.background-clip(@clip) {
+-webkit-background-clip : @clip;
+-moz-background-clip : @clip;
+background-clip : @clip; }
+
+// .box-sizing(VALUE); (border-box, padding-box, content-box)
+
+.box-sizing(@boxsize: border-box) {
+-webkit-box-sizing : @boxsize;
+-moz-box-sizing : @boxsize;
+-ms-box-sizing : @boxsize;
+box-sizing : @boxsize; }
+
+// Chrome Frame
+
+.chromeframe() {
+margin : .2em 0;
+background : @lightgrey;
+color : @black;
+padding : .2em 0; }
+
+// Contain floats
+
+// .clearfix {
+// *zoom : 1;
+// &:before,
+// &:after {
+// display: table;
+// content : ""; }
+// &:after {
+// clear : both; } }
+
+// The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
+.clearfix() {
+
+	clear: both; //ADDED. is it safe? let the tests begin
+
+	*zoom:1;
+
+	&:before,
+	&:after {
+	    content:"\0020"; //A spacebar
+	    display:table;
+	}
+	&:after {
+	    clear:both;
+	}
+}
+
+// For image replacement
+
+.hide-text() {
+text-indent : 100%;
+white-space : nowrap;
+overflow : hidden; }
+
+// Hide from visual and speaking browsers
+
+.hidden() {
+display : none !important;
+visibility : hidden; }
+
+// Hide but maintain layout
+
+.invisible() {
+visibility : hidden; }
+
+// .resize(VALUE) (none, both, horizontal, vertical, inherit)
+
+.resize(@direction: both) {
+resize : @direction;
+overflow : auto; }
+
+// .userselect(VALUE) (all, element, none, text)
+
+.user-select(@select) {
+-webkit-user-select : @select;
+-moz-user-select : @select;
+-o-user-select : @select;
+user-select : @select; }
+
+// Hidden but available to speaking browsers
+
+.visuallyhidden() {
+overflow : hidden;
+position : absolute;
+clip : rect(0 0 0 0);
+height : 1px;
+width : 1px;
+margin : -1px;
+padding : 0;
+border : 0; }
+
+// Make visuallyhidden focusable with a keyboard
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+position : static;
+clip : auto;
+height : auto;
+width : auto;
+margin : 0;
+overflow: visible; }
+
+// 6. LAYOUT 				==============================
+
+// .columns(250px, 0, 24px, COLOR, solid, 1px)
+
+.columns(@colwidth: 250px, @colcount: 0, @colgap: 50px, @columnRuleColor: #eee, @columnRuleStyle: solid, @columnRuleWidth: 1px) {
+-webkit-column-width : @colwidth;
+-webkit-column-count : @colcount;
+-webkit-column-gap : @colgap;
+-webkit-column-rule-color : @columnRuleColor;
+-webkit-column-rule-style : @columnRuleStyle;
+-webkit-column-rule-width : @columnRuleWidth;
+-moz-column-width : @colwidth;
+-moz-column-count : @colcount;
+-moz-column-gap : @colgap;
+-moz-column-rule-color : @columnRuleColor;
+-moz-column-rule-style : @columnRuleStyle;
+-moz-column-rule-width : @columnRuleWidth;
+column-width : @colwidth;
+column-count : @colcount;
+column-gap : @colgap;
+column-rule-color : @columnRuleColor;
+column-rule-style : @columnRuleStyle;
+column-rule-width : @columnRuleWidth; }
+
+//  7. VENDOR-SPECIFIC 		==============================
+//  8. MODERNIZR 			==============================
+//  9. TEMPLATE SPECIFICS 	==============================

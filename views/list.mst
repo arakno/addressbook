@@ -1,0 +1,28 @@
+       <tr>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Email</th>
+    <th>Country</th>
+  </tr>
+       {{#entry}}
+           <tr>
+               <td>{{name.firstName}}
+               </td>
+              <td>{{name.surname}}
+               </td>
+             <td>{{email}}
+               </td>
+            <td>{{country}}
+               </td>
+               <td>
+               <div class="actions">
+                    <!-- <button class="editContact">Edit  contact</button>-->
+                    <button class="deleteContact">Delete contact</button>  
+                  </div></td>
+           </tr>
+        {{/entry}}
+        {{^entry}}
+           <tr>
+               <td>No entries found. <button href="" id="addEntry">Add entry</button></td>
+           </tr>
+        {{/entry}}

@@ -1,0 +1,14 @@
+{
+  "in": ["styles/index.less"],
+  "out": "dist/index.css",
+  "less": true,
+  "browsers": ["last 2 versions"],
+  "rem": false,
+  "pseudoElements": false,
+  "opacity": false,
+  "sourcemaps": {
+    "map": {
+      "inline": false
+    }
+  }
+}
