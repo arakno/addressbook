@@ -1,11 +1,11 @@
-       <tr>
+  <tr>
     <th>Name</th>
     <th>Surname</th>
     <th>Email</th>
     <th>Country</th>
   </tr>
        {{#entry}}
-           <tr>
+           <tr data-id="{{id}}">
                <td>{{name.firstName}}
                </td>
               <td>{{name.surname}}

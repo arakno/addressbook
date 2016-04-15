@@ -26,9 +26,9 @@ App.AddressBook = {};
 
         for (var i = 0; i < sessionStorage.length; i++) {
             //Object.assign(contactList, instance.get(sessionStorage.key(i)));
-            contactList['entry'].push(instance.get(sessionStorage.key(i))['entry'])
+            contactList['entry'].push(instance.get(sessionStorage.key(i)))
         }
-        console.log(contactList);
+        //console.log(contactList);
 
         $.get('views/list.mst', function(template) {
             var rendered = Mustache.render(template, contactList);
@@ -77,18 +77,18 @@ App.AddressBook = {};
             return false;
         });
 
-        $('.deleteContact').on('click', function(e) {
-            var row = $(this).closest("tr").index() - 1;
+        $('.deleteContact').on('click', function() {
+            var row = this.parentElement.parentElement.parentElement.dataset.id;
             instance.delete(row);
             instance.clean();
             instance.render();
             return false;
         });
 
-        $('.editContact').on('click', function(e) {
-            var el = $(e.currentTarget);
+        $('.editContact').on('click', function() {
+            var row = this.parentElement.parentElement.parentElement.dataset.id;
             var contact = new App.AddressBook.Contact("jonas", "sabonis", "jonassabonis@arakno.net");
-            instance.edit(e.currentTarget.id);
+            instance.edit(this.parentElement.parentElement.parentElement.dataset.id);
             return false;
         });
 
@@ -101,7 +101,23 @@ App.AddressBook = {};
 
 })(App.AddressBook);
 
+//Data Model
+App.AddressBook.Contact = function(firstName, surname, email, country) {
+    var contact = {
+            id: new Date().getUTCMilliseconds(),
+            name: {
+                firstName: firstName,
+                surname: surname
+            },
+            email: email,
+            country: null
+        }
 
+    return contact;
+
+};
+
+//View/Edit Contact
 App.AddressBook.Edit = {};
 (function(instance) {
 
@@ -141,7 +157,7 @@ App.AddressBook.Edit = {};
             });
 
         }).catch(function(err) {
-            throw new Error("error on xhr: " + err);
+            throw new Error("XHR error: " + err);
         });
 
         $("#listView").hide();
@@ -169,21 +185,20 @@ App.AddressBook.Edit = {};
             }
 
             var contact = new App.AddressBook.Contact();
-            contact.entry.name.firstName = filteredData[0];
-            contact.entry.name.surname = filteredData[1];
-            contact.entry.email = filteredData[2];
-            contact.entry.country = filteredData[3];
+            contact.name.firstName = filteredData[0];
+            contact.name.surname = filteredData[1];
+            contact.email = filteredData[2];
+            contact.country = filteredData[3];
             /*
-                        var sel = $("#country")[0];
-                        entry.country = sel.options[sel.selectedIndex].value;
-              */
-            App.AddressBook.put(sessionStorage.length, contact);
+                var sel = $("#country")[0];
+                entry.country = sel.options[sel.selectedIndex].value;
+            */
+            App.AddressBook.put(contact.id, contact);
             App.AddressBook.clean();
             App.AddressBook.render();
 
             $("#listView").show();
             $("#contactView").hide();
-
 
             return false;
         });
@@ -194,27 +209,10 @@ App.AddressBook.Edit = {};
         instance.render(params);
         _bindEvents();
 
-
     };
+
 })(App.AddressBook.Edit);
 
-//Data Model
-App.AddressBook.Contact = function(firstName, surname, email, country) {
-    var contact = {
-
-        entry: {
-            name: {
-                firstName: firstName,
-                surname: surname
-            },
-            email: email,
-            country: null
-        }
-    };
-    return contact;
-
-
-};
 
 App.init();
 
